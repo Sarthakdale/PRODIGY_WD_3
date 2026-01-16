@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prodigy Task 03 - Ultimate Tic Tac Toe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="confetti"></canvas>
+
+    <div class="game-wrapper">
+        <h1 class="title">TIC <span class="gradient-text">TAC</span> TOE</h1>
+
+        <div class="controls-container">
+            <p>Select Mode:</p>
+            <div class="toggle-box">
+                <input type="checkbox" id="aiToggle">
+                <label for="aiToggle" class="toggle-label">
+                    <span class="toggle-ball"></span>
+                </label>
+                <span id="modeLabel">2 Player</span>
+            </div>
+        </div>
+
+        <div class="status-bar" id="status">Player X's Turn</div>
+
+        <div class="board-container">
+            <div class="board" id="board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+                <div class="winning-line" id="winningLine"></div>
+            </div>
+        </div>
+
+        <button id="restartBtn" class="glow-btn">Restart Game</button>
+    </div>
+
+    <div id="winModal" class="modal">
+        <div class="modal-content">
+            <h2 id="winnerText">Winner!</h2>
+            <button id="newGameBtn">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
