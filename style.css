@@ -1,0 +1,217 @@
+/* --- RESET & FONTS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+    user-select: none; /* Prevents highlighting text */
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Deep Space Gradient */
+    background: radial-gradient(circle at top, #1a0b2e, #11051b, #000000);
+    overflow: hidden;
+    color: white;
+}
+
+/* Confetti Layer */
+#confetti {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 99;
+}
+
+.game-wrapper {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+}
+
+/* --- TITLE --- */
+.title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+.gradient-text {
+    background: linear-gradient(90deg, #00fff2, #ff004c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- CONTROLS --- */
+.controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* Custom Toggle Switch */
+.toggle-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.toggle-label {
+    width: 50px;
+    height: 26px;
+    background-color: #333;
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid #555;
+}
+.toggle-ball {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    transition: 0.3s;
+}
+#aiToggle { display: none; }
+#aiToggle:checked + .toggle-label { background-color: #7000ff; border-color: #7000ff; }
+#aiToggle:checked + .toggle-label .toggle-ball { transform: translateX(24px); }
+#modeLabel { font-weight: bold; color: white; }
+
+/* --- STATUS BAR --- */
+.status-bar {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* --- GAME BOARD --- */
+.board-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto 30px;
+    background: rgba(255, 255, 255, 0.05); /* Glass Effect */
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 0 30px rgba(112, 0, 255, 0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.cell {
+    border: 2px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Remove outer borders for cleaner look */
+.cell:nth-child(3n+1) { border-left: none; }
+.cell:nth-child(3n) { border-right: none; }
+.cell:nth-child(-n+3) { border-top: none; }
+.cell:nth-child(n+7) { border-bottom: none; }
+
+.cell:hover { background: rgba(255,255,255,0.03); }
+
+/* X and O Styling */
+.cell.x { color: #00fff2; text-shadow: 0 0 15px #00fff2; }
+.cell.o { color: #ff004c; text-shadow: 0 0 15px #ff004c; }
+
+/* Winning Line Animation */
+.winning-line {
+    position: absolute;
+    background-color: white;
+    height: 4px;
+    width: 0;
+    top: 0; left: 0;
+    transform-origin: top left;
+    transition: width 0.4s ease-out;
+    z-index: 5;
+    box-shadow: 0 0 10px white, 0 0 20px #7000ff;
+    border-radius: 2px;
+    display: none;
+}
+
+/* --- BUTTONS --- */
+.glow-btn {
+    padding: 12px 30px;
+    background: linear-gradient(45deg, #7000ff, #ff004c);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.glow-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(112, 0, 255, 0.4);
+}
+
+/* --- MODAL --- */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.modal.active { display: flex; animation: fadeIn 0.3s; }
+.modal-content {
+    background: #1a1a2e;
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid #7000ff;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(112,0,255,0.3);
+}
+.modal-content h2 { font-size: 2.5rem; margin-bottom: 20px; color: white; }
+#newGameBtn {
+    padding: 10px 25px;
+    background: white;
+    color: #1a1a2e;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+}
